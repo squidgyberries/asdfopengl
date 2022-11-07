@@ -1,5 +1,5 @@
-#ifndef LEARNOPENGL_LOG_H
-#define LEARNOPENGL_LOG_H
+#ifndef ASDFOPENGL_LOG_H
+#define ASDFOPENGL_LOG_H
 
 #include <stdio.h>
 
@@ -16,4 +16,4 @@ extern LogLevelE logLevel;
 
 void logMsg(LogLevelE msgType, const char *fmt, ...);
 
-#endif // LEARNOPENGL_LOG_H
+#endif // ASDFOPENGL_LOG_H

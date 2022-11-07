@@ -1,5 +1,5 @@
-#ifndef LEARNOPENGL_TYPES_H
-#define LEARNOPENGL_TYPES_H
+#ifndef ASDFOPENGL_TYPES_H
+#define ASDFOPENGL_TYPES_H
 
 #include <stdbool.h>
 #include <stddef.h>
@@ -149,4 +149,4 @@ StateInitErr stateInitErrFromShaderFromFileErr(ShaderFromFileErr err);
 
 void getStringStateInitErr(char *buf, size_t bufSize, StateInitErr err);
 
-#endif // LEARNOPENGL_TYPES_H
+#endif // ASDFOPENGL_TYPES_H

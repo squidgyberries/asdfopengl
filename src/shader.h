@@ -1,5 +1,5 @@
-#ifndef LEARNOPENGL_SHADER_H
-#define LEARNOPENGL_SHADER_H
+#ifndef ASDFOPENGL_SHADER_H
+#define ASDFOPENGL_SHADER_H
 
 #include "types.h"
 
@@ -23,4 +23,4 @@ bool shaderCheckLinkErrors(u32 shader, ShaderLinkErr *r_err);
 bool shaderFromFile(const char *vertexPath, const char *fragmentPath, u32 *r_id,
                    ShaderFromFileErr *r_err);
 
-#endif // LEARNOPENGL_SHADER_H
+#endif // ASDFOPENGL_SHADER_H
