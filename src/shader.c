@@ -9,12 +9,14 @@
 //   true if error occured and error was returned
 bool shaderCheckCompileErrors(u32 shader, ShaderTypeE type, ShaderCompilationErr *r_err) {
   i32 success;
-  char infoLog[512];
   glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
   if (!success) {
+    i32 maxLength = 0;
+    glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &maxLength);
+    char *infoLog = malloc(sizeof(char) * maxLength); // TODO: add MemAllocErr
     glGetShaderInfoLog(shader, 512, NULL, infoLog);
     r_err->type = type;
-    r_err->infoLog = infoLog;
+    r_err->infoLog = infoLog; // TODO: do something about the memory
     return true;
   }
   return false;
@@ -23,13 +25,16 @@ bool shaderCheckCompileErrors(u32 shader, ShaderTypeE type, ShaderCompilationErr
 // returns:
 //   false if no error occured
 //   true if error occured and error was returned
-bool shaderCheckLinkErrors(u32 shader, ShaderLinkErr *r_err) {
+// TODO: rename to ProgramCheckLinkErrors
+bool shaderCheckLinkErrors(u32 program, ShaderLinkErr *r_err) {
   i32 success;
-  char infoLog[512];
-  glGetProgramiv(shader, GL_LINK_STATUS, &success);
+  glGetProgramiv(program, GL_LINK_STATUS, &success);
   if (!success) {
-    glGetProgramInfoLog(shader, 512, NULL, infoLog);
-    r_err->infoLog = infoLog;
+    i32 maxLength = 0;
+    glGetProgramiv(program, GL_INFO_LOG_LENGTH, &maxLength);
+    char *infoLog = malloc(sizeof(char) * maxLength); // TODO: add MemAllocErr
+    glGetProgramInfoLog(program, 512, NULL, infoLog);
+    r_err->infoLog = infoLog; // TODO: do something about the memory
     return true;
   }
   return false;
