@@ -79,6 +79,7 @@ bool shaderFromFile(const char *vPath, const char *fPath, u32 *r_id, ShaderFromF
   ShaderCompilationErr shaderCompilationErr;
   if (shaderCheckCompileErrors(vShader, ShaderVertex, &shaderCompilationErr)) {
     *r_err = FROM(*r_err, shaderCompilationErr)(shaderCompilationErr);
+    glDeleteShader(vShader);
     return true;
   }
 
@@ -121,22 +122,27 @@ bool shaderFromFile(const char *vPath, const char *fPath, u32 *r_id, ShaderFromF
   // Check for errors
   if (shaderCheckCompileErrors(fShader, ShaderFragment, &shaderCompilationErr)) {
     *r_err = FROM(*r_err, shaderCompilationErr)(shaderCompilationErr);
+    glDeleteShader(fShader);
     return true;
   }
 
-  *r_id = glCreateProgram();
-  glAttachShader(*r_id, vShader);
-  glAttachShader(*r_id, fShader);
-  glLinkProgram(*r_id);
+  u32 program = glCreateProgram();
+  glAttachShader(program, vShader);
+  glAttachShader(program, fShader);
+  glLinkProgram(program);
 
   ShaderLinkErr shaderLinkErr;
   if (shaderCheckLinkErrors(*r_id, &shaderLinkErr)) {
     *r_err = FROM(*r_err, shaderLinkErr)(shaderLinkErr);
+    glDeleteProgram(program);
+    glDeleteShader(vShader);
+    glDeleteShader(fShader);
     return true;
   }
 
   glDeleteShader(vShader);
   glDeleteShader(fShader);
 
+  *r_id = program;
   return false;
 }
